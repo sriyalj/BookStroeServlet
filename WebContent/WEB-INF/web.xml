@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>BookStoreServlet</display-name>
+  <!-- 
+  <servlet>
+     <servlet-name>deleteBook</servlet-name>
+     <servlet-class>DeleteBook</servlet-class>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>deleteBook</servlet-name>
+     <url-pattern>/deleteBook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+     <servlet-name>saveBook</servlet-name>
+     <servlet-class>SaveBook</servlet-class>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>saveBook</servlet-name>
+     <url-pattern>/saveBook</url-pattern>
+  </servlet-mapping>
+  -->
+</web-app>
