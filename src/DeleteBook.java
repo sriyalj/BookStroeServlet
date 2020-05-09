@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class DeleteBook extends HttpServlet {
         String scndNum = request.getParameter("SecondNumber");
         String operation = request.getParameter("Operation");          
         
-        response.getWriter().println("DeleteBookServlet Called");
+        response.getWriter().println("Hello DeleteBookServlet Called");
         /*
         Controller control = new Controller (fstNum, scndNum, operation);
         ArrayList <String> ans = control.doGet();

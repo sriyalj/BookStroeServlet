@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class UpdateBook extends HttpServlet {
         System.out.println (scndNum);
         System.out.println (operation);
         
-        response.getWriter().println("UpdateBookServlet Called");
+        response.getWriter().println("Hello UpdateBookServlet Called");
         /*
         Controller control = new Controller (fstNum, scndNum, operation);
         ArrayList <String> ans = control.doGet();

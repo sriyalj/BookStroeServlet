@@ -1,2 +1,5 @@
+AddBook.class
+ViewBook.class
+ViewAllBooks.class
 DeleteBook.class
-SaveBook.class
+UpdateBook.class
