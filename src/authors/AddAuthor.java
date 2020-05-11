@@ -1,4 +1,4 @@
-package books;
+package authors;
 
 
 import java.io.BufferedReader;
@@ -14,14 +14,14 @@ import java.util.*;
 /**
  * Servlet implementation class View
  */
-@WebServlet("/books/addBook")
-public class AddBook extends HttpServlet {
+@WebServlet("/authors/addBook")
+public class AddAuthor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddBook() {
+    public AddAuthor() {
         super();
         // TODO Auto-generated constructor stub
     }
