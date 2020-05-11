@@ -1,3 +1,4 @@
+package books;
 
 
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ import java.util.*;
 /**
  * Servlet implementation class View
  */
-@WebServlet("/deleteBook")
+@WebServlet("/books/deleteBook")
 public class DeleteBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

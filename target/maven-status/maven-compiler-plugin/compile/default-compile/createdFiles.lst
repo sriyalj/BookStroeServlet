@@ -1,5 +1,6 @@
 AddBook.class
 ViewBook.class
+test/AddBook.class
 ViewAllBooks.class
 DeleteBook.class
 UpdateBook.class

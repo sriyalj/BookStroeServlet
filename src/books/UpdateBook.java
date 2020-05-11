@@ -1,3 +1,4 @@
+package books;
 
 
 import java.io.BufferedReader;
@@ -13,14 +14,14 @@ import java.util.*;
 /**
  * Servlet implementation class View
  */
-@WebServlet("/saveBook")
-public class AddBook extends HttpServlet {
+@WebServlet("/books/updateBook")
+public class UpdateBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddBook() {
+    public UpdateBook() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,9 +34,13 @@ public class AddBook extends HttpServlet {
 		
 		String fstNum = request.getParameter("FirstNumber");
         String scndNum = request.getParameter("SecondNumber");
-        String operation = request.getParameter("Operation");          
+        String operation = request.getParameter("Operation");    
         
-        response.getWriter().println("SaveBookServlet Called");
+        System.out.println (fstNum);
+        System.out.println (scndNum);
+        System.out.println (operation);
+        
+        response.getWriter().println("Hello UpdateBookServlet Called");
         /*
         Controller control = new Controller (fstNum, scndNum, operation);
         ArrayList <String> ans = control.doGet();
