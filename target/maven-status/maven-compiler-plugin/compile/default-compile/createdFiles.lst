@@ -1,6 +1,9 @@
-AddBook.class
-ViewBook.class
+authors/AddAuthor.class
+books/AddBook.class
 test/AddBook.class
-ViewAllBooks.class
-DeleteBook.class
-UpdateBook.class
+DBConn/AuthorDBConn.class
+books/ViewAllBooks.class
+Entity/Author.class
+books/DeleteBook.class
+books/ViewBook.class
+books/UpdateBook.class
