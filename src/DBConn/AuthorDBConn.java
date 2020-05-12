@@ -33,19 +33,23 @@ public class AuthorDBConn {
     	
     	boolean success = false;
     	
+    	
     	String insertQuery = " insert into Authors (Fst_Name, Mdle_Name, Lst_Name, Origin_Country)"
     	        + " values (?, ?, ?, ?)";
     	
     	try {
+    		Class.forName("com.mysql.cj.jdbc.Driver") ;
     	    con = DriverManager.getConnection(url, user, password);
     		PreparedStatement preparedStmt = con.prepareStatement(insertQuery);
             preparedStmt.setString (1, obj.getFstName());
             preparedStmt.setString (2, obj.getMiddleName());
             preparedStmt.setString (3, obj.getLastName());
-            preparedStmt.setString (1, obj.getOriginCountry());
+            preparedStmt.setString (4, obj.getOriginCountry());
             success = preparedStmt.execute();
-            //System.out.println("Inserting Done");
-    	}
+           
+    	} catch (ClassNotFoundException e) {
+			throw new SQLException("DB Driver Load Failed");
+		}
     	finally {
     		if (con != null) {
     			try { 

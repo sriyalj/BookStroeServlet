@@ -52,9 +52,8 @@ public class AddAuthor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		byte[] message = null;
-		
-		System.out.println ("Add Author Servlet doPost Called");
-		
+		System.out.println (request.getContentType());
+			
 		request.setCharacterEncoding("UTF-8");
 	    int contentLen = request.getContentLength();
 		InputStream is = request.getInputStream();
