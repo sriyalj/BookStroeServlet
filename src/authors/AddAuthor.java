@@ -53,7 +53,8 @@ public class AddAuthor extends HttpServlet {
 		// TODO Auto-generated method stub
 		byte[] message = null;
 		System.out.println (request.getContentType());
-			
+		System.out.println (request.getHeader("Request-Type"));
+					
 		request.setCharacterEncoding("UTF-8");
 	    int contentLen = request.getContentLength();
 		InputStream is = request.getInputStream();
