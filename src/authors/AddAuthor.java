@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import DBConn.AuthorDBConn;
 import Entity.Author;
-import Util.ObjectGenerator;
+import Util.GeneralServerResponse;
+import Util.ObjectGeneratorFromPayLoad;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -53,22 +54,58 @@ public class AddAuthor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		byte[] message = null;
-		String reqContentType = request.getContentType();
-		String resContentType = request.getHeader("Request-Type");
+		Author authorObj = null;
+		GeneralServerResponse serverResponse = null;
 		
-		ObjectGenerator objGen =  new ObjectGenerator ();
+		try {
+			String reqContentType = request.getContentType();
+			String resContentType = request.getHeader("Request-Type");
 		
-		if (reqContentType.equals("text/plain; charset=utf-8")) {
-			objGen.getObjectFromText(request);
+			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
+		
+			if (reqContentType.equals("text/plain; charset=utf-8")) {
+				authorObj = (Author)objGen.getObjectFromText(request);
+			}
+			else if (reqContentType.equals("/application/json; utf-8")) {
+				authorObj = (Author)objGen.getObjectFromJSON(request);
+			} 
+			else if (reqContentType.equals("application/xml")) {
+				authorObj = (Author)objGen.getObjectFromXML(request);
+			}
+			
+			AuthorDBConn dbCon =  new AuthorDBConn ();
+		    dbCon.addAuthor(authorObj);
+		    serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
+		   
+		}			
+		catch (IOException | ClassNotFoundException ex ) {
+			
+			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied to read the data sent");
+            
+		} catch (SQLException ex ) {
+			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            
+            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied write the data to the DB");            
 		}
-		else if (reqContentType.equals("/application/json; utf-8")) {
-			objGen.getObjectFromJSON(request);
-		} 
-		else if (reqContentType.equals("application/xml")) {
-			objGen.getObjectFromXML(request);
+		catch (Exception ex ) {
+			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            
+            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Genreal Error At Server");
 		}
-					
-		request.setCharacterEncoding("UTF-8");
+		finally {
+			
+		}
+		
+	}
+}
+
+
+/*
+ request.setCharacterEncoding("UTF-8");
 	    int contentLen = request.getContentLength();
 		InputStream is = request.getInputStream();
 		if (contentLen > 0) {
@@ -105,7 +142,14 @@ public class AddAuthor extends HttpServlet {
 	            response.getWriter().println("Server Response Code " + Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));       		
 	            response.getWriter().println("Service falied write the data to the DB");
 			}
-		}		
-		
-	}
-}
+		}	
+ */
+
+/* 
+  response.getWriter().println("Server Response Code " + Integer.toString(HttpServletResponse.SC_OK));       		
+            response.getWriter().println("New Author Added Succesfully");
+            
+  response.getWriter().println("Server Response Code " + Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));       		
+            response.getWriter().println("Service falied to read the data sent");
+ */
+  
