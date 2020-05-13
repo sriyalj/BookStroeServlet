@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DBConn.AuthorDBConn;
 import Entity.Author;
+import Util.ObjectGenerator;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -52,8 +53,20 @@ public class AddAuthor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		byte[] message = null;
-		System.out.println (request.getContentType());
-		System.out.println (request.getHeader("Request-Type"));
+		String reqContentType = request.getContentType();
+		String resContentType = request.getHeader("Request-Type");
+		
+		ObjectGenerator objGen =  new ObjectGenerator ();
+		
+		if (reqContentType.equals("text/plain; charset=utf-8")) {
+			objGen.getObjectFromText(request);
+		}
+		else if (reqContentType.equals("/application/json; utf-8")) {
+			objGen.getObjectFromJSON(request);
+		} 
+		else if (reqContentType.equals("application/xml")) {
+			objGen.getObjectFromXML(request);
+		}
 					
 		request.setCharacterEncoding("UTF-8");
 	    int contentLen = request.getContentLength();
