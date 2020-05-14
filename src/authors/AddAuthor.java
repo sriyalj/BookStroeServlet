@@ -63,7 +63,7 @@ public class AddAuthor extends HttpServlet {
 	
 		try {
 			reqContentType = request.getContentType();
-			resContentType = request.getHeader("Request-Type");
+			resContentType = request.getHeader("Accept");
 		
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		
