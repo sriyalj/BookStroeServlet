@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -16,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import DBConn.AuthorDBConn;
 import Entity.Author;
-import Util.GeneralServerResponse;
+import Util.GeneralServerResponseMsgs;
 import Util.ObjectGeneratorFromPayLoad;
+import Util.ResponsePayLoadGenerator;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -55,11 +57,13 @@ public class AddAuthor extends HttpServlet {
 		// TODO Auto-generated method stub
 		byte[] message = null;
 		Author authorObj = null;
-		GeneralServerResponse serverResponse = null;
-		
+		GeneralServerResponseMsgs serverResponse = null;
+		String reqContentType = "";
+		String resContentType = ""; 
+	
 		try {
-			String reqContentType = request.getContentType();
-			String resContentType = request.getHeader("Request-Type");
+			reqContentType = request.getContentType();
+			resContentType = request.getHeader("Request-Type");
 		
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		
@@ -75,28 +79,43 @@ public class AddAuthor extends HttpServlet {
 			
 			AuthorDBConn dbCon =  new AuthorDBConn ();
 		    dbCon.addAuthor(authorObj);
-		    serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
+		    serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
 		   
 		}			
 		catch (IOException | ClassNotFoundException ex ) {
 			
 			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
-            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied to read the data sent");
+            serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied to read the data sent");
             
 		} catch (SQLException ex ) {
 			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             
-            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied write the data to the DB");            
+            serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Service falied write the data to the DB");            
 		}
 		catch (Exception ex ) {
 			Logger lgr = Logger.getLogger(AuthorDBConn.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             
-            serverResponse = new GeneralServerResponse (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Genreal Error At Server");
+            serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Genreal Error At Server");
 		}
 		finally {
+			
+			ResponsePayLoadGenerator responsePayLoadGen =  new ResponsePayLoadGenerator ();
+			
+			if (resContentType.equals("text/plain; charset=utf-8")) {
+				byte responsePayLoad [] = responsePayLoadGen.textPayLoadGenerator(serverResponse);
+				OutputStream out = response.getOutputStream(); 
+			    out.write(responsePayLoad);
+				
+			}
+			else if (resContentType.equals("/application/json; utf-8")) {
+				responsePayLoadGen.jsonPayLoadGenerator(request);
+			} 
+			else if (resContentType.equals("application/xml")) {
+				responsePayLoadGen.xmlPayLoadGenerator(request);
+			}
 			
 		}
 		

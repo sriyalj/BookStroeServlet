@@ -1,9 +1,13 @@
 authors/AddAuthor.class
+DBConn/AuthorDBConn.class
+books/DeleteBook.class
+books/UpdateBook.class
 books/AddBook.class
 test/AddBook.class
-DBConn/AuthorDBConn.class
 books/ViewAllBooks.class
+Util/ObjectGeneratorFromPayLoad.class
+Util/ResponseMsgs.class
 Entity/Author.class
-books/DeleteBook.class
+Util/ResponsePayLoadGenerator.class
 books/ViewBook.class
-books/UpdateBook.class
+Util/GeneralServerResponseMsgs.class
