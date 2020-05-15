@@ -116,7 +116,9 @@ public class AddAuthor extends HttpServlet {
 			    out.write(responsePayLoad);
 			} 
 			else if (resContentType.equals("application/xml")) {
-				responsePayLoadGen.xmlPayLoadGenerator(request);
+				byte responsePayLoad [] = responsePayLoadGen.xmlPayLoadGenerator(serverResponse);
+				OutputStream out = response.getOutputStream(); 
+			    out.write(responsePayLoad);
 			}
 			
 		}

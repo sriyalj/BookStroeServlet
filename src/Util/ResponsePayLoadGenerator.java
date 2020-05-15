@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import Entity.Author;
 
@@ -35,8 +37,16 @@ public class ResponsePayLoadGenerator {
 	    return requestBody;
 	}
 	
-	public String xmlPayLoadGenerator (Object obj) {
-		return null;
+	public byte [] xmlPayLoadGenerator (Object obj) throws IOException {
+		XmlMapper xmlMapper = new XmlMapper();
+		String xmlString = xmlMapper.writeValueAsString(obj);
+		
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    ObjectOutputStream oos = new ObjectOutputStream(bos);
+	    oos.writeObject(xmlString);
+	    oos.flush();
+	    byte [] requestBody = bos.toByteArray();
+	    return requestBody;
 	}
 
 }
