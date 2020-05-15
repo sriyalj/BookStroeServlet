@@ -10,6 +10,10 @@ public class GeneralServerResponseMsgs extends ResponseMsgs implements Serializa
 		super (serverMsg);
 		this.serverResponseCode = serverResponseCode;
 	}
+	
+	public GeneralServerResponseMsgs () {
+		
+	}
 
 	public String getServerResponseCode() {
 		return serverResponseCode;

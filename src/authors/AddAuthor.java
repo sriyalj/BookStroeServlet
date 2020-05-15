@@ -70,7 +70,7 @@ public class AddAuthor extends HttpServlet {
 			if (reqContentType.equals("text/plain; charset=utf-8")) {
 				authorObj = (Author)objGen.getObjectFromText(request);
 			}
-			else if (reqContentType.equals("/application/json; utf-8")) {
+			else if (reqContentType.equals("application/json; utf-8")) {
 				authorObj = (Author)objGen.getObjectFromJSON(request);
 			} 
 			else if (reqContentType.equals("application/xml")) {
@@ -105,13 +105,15 @@ public class AddAuthor extends HttpServlet {
 			ResponsePayLoadGenerator responsePayLoadGen =  new ResponsePayLoadGenerator ();
 			
 			if (resContentType.equals("text/plain; charset=utf-8")) {
-				byte responsePayLoad [] = responsePayLoadGen.textPayLoadGenerator(serverResponse);
+				byte responsePayLoad [] = responsePayLoadGen.textPayLoadGenerator(serverResponse);				
 				OutputStream out = response.getOutputStream(); 
 			    out.write(responsePayLoad);
 				
 			}
-			else if (resContentType.equals("/application/json; utf-8")) {
-				responsePayLoadGen.jsonPayLoadGenerator(request);
+			else if (resContentType.equals("application/json; utf-8")) {
+				byte responsePayLoad [] = responsePayLoadGen.jsonPayLoadGenerator(serverResponse);
+				OutputStream out = response.getOutputStream(); 
+			    out.write(responsePayLoad);
 			} 
 			else if (resContentType.equals("application/xml")) {
 				responsePayLoadGen.xmlPayLoadGenerator(request);

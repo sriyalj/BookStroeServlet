@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import Entity.Author;
 
 public class ObjectGeneratorFromPayLoad {
@@ -40,8 +42,35 @@ public class ObjectGeneratorFromPayLoad {
 		}
 	}
 	
-	public Object getObjectFromJSON (HttpServletRequest request) {
-		return null;
+	public Object getObjectFromJSON (HttpServletRequest request) throws ClassNotFoundException, IOException {
+		
+		byte[] message = null;
+		request.setCharacterEncoding("UTF-8");
+	    int contentLen = request.getContentLength();
+		InputStream is = request.getInputStream();
+		if (contentLen > 0) {
+			int readLen = 0;
+			int readLengthThisTime = 0;
+			message = new byte[contentLen];
+			
+			while (readLen != contentLen) {
+				readLengthThisTime = is.read(message, readLen, contentLen - readLen);
+				if (readLengthThisTime == -1) {
+					break;
+				}
+				readLen += readLengthThisTime;
+			}
+			ByteArrayInputStream in = new ByteArrayInputStream(message);
+			ObjectInputStream ois = new ObjectInputStream(in);
+			String reterivedString = (String) ois.readObject();
+			
+			ObjectMapper mapper = new ObjectMapper();
+			Author authorObj = mapper.readValue(reterivedString, Author.class);
+			return authorObj;			
+		}
+		else {
+			throw new IOException ();
+		}
 	}
 	
 	public Object getObjectFromXML (HttpServletRequest request) {
