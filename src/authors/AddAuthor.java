@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import DBConn.AuthorDBConn;
 import Entity.Author;
+import Entity.LoginDetails;
 import Util.GeneralServerResponseMsgs;
 import Util.ObjectGeneratorFromPayLoad;
 import Util.ResponsePayLoadGenerator;
@@ -66,10 +70,14 @@ public class AddAuthor extends HttpServlet {
 				authorObj = (Author)objGen.getObjectFromText(request);
 			}
 			else if (reqContentType.equals("application/json; utf-8")) {
-				authorObj = (Author)objGen.getObjectFromJSON(request);
+				String jsonPayLoad = objGen.getObjectFromJSON(request);
+				ObjectMapper mapper = new ObjectMapper();
+				authorObj = mapper.readValue(jsonPayLoad, Author.class);
 			} 
 			else if (reqContentType.equals("application/xml")) {
-				authorObj = (Author)objGen.getObjectFromXML(request);
+				String xmlPayLoad = objGen.getObjectFromXML(request);
+				XmlMapper xmlMapper = new XmlMapper();
+				authorObj = xmlMapper.readValue(xmlPayLoad, Author.class);
 			}
 			
 			AuthorDBConn dbCon =  new AuthorDBConn ();

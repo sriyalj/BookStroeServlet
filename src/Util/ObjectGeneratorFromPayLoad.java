@@ -44,7 +44,7 @@ public class ObjectGeneratorFromPayLoad {
 		}
 	}
 	
-	public Object getObjectFromJSON (HttpServletRequest request) throws ClassNotFoundException, IOException {
+	public String getObjectFromJSON (HttpServletRequest request) throws ClassNotFoundException, IOException {
 		
 		byte[] message = null;
 		request.setCharacterEncoding("UTF-8");
@@ -64,18 +64,16 @@ public class ObjectGeneratorFromPayLoad {
 			}
 			ByteArrayInputStream in = new ByteArrayInputStream(message);
 			ObjectInputStream ois = new ObjectInputStream(in);
-			String reterivedString = (String) ois.readObject();
+			String reterivedString = (String) ois.readObject();	
 			
-			ObjectMapper mapper = new ObjectMapper();
-			Author authorObj = mapper.readValue(reterivedString, Author.class);
-			return authorObj;			
+			return reterivedString;			
 		}
 		else {
 			throw new IOException ();
 		}
 	}
 	
-	public Object getObjectFromXML (HttpServletRequest request) throws IOException, ClassNotFoundException {
+	public String getObjectFromXML (HttpServletRequest request) throws IOException, ClassNotFoundException {
 		
 		byte[] message = null;
 		request.setCharacterEncoding("UTF-8");
@@ -97,9 +95,7 @@ public class ObjectGeneratorFromPayLoad {
 			ObjectInputStream ois = new ObjectInputStream(in);
 			String reterivedString = (String) ois.readObject();
 			
-			XmlMapper xmlMapper = new XmlMapper();
-			Author authorObj = xmlMapper.readValue(reterivedString, Author.class);
-			return authorObj;			
+			return reterivedString;	
 		}
 		else {
 			throw new IOException ();

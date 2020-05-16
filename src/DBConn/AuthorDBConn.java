@@ -22,7 +22,7 @@ public class AuthorDBConn {
     
     public boolean addAuthor(Author obj) throws SQLException{
     	
-    	boolean success = false;    	
+    	boolean success = false;     	
     	
     	String insertQuery = " insert into Authors (Fst_Name, Mdle_Name, Lst_Name, Origin_Country)"
     	        + " values (?, ?, ?, ?)";
@@ -35,7 +35,11 @@ public class AuthorDBConn {
             preparedStmt.setString (2, obj.getMiddleName());
             preparedStmt.setString (3, obj.getLastName());
             preparedStmt.setString (4, obj.getOriginCountry());
-            success = preparedStmt.execute();
+            int status  = preparedStmt.executeUpdate();
+            
+            if (status > 0) {
+            	success = true;
+            }
            
     	} catch (ClassNotFoundException e) {
 			throw new SQLException("DB Driver Load Failed");

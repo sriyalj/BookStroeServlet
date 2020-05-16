@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import DBConn.AuthorDBConn;
 import DBConn.LoginDBConn;
 import Entity.Author;
@@ -63,10 +66,14 @@ public class Login extends HttpServlet {
 				loginObj = (LoginDetails)objGen.getObjectFromText(request);
 			}
 			else if (reqContentType.equals("application/json; utf-8")) {
-				loginObj = (LoginDetails)objGen.getObjectFromJSON(request);
+				String jsonPayLoad = objGen.getObjectFromJSON(request);
+				ObjectMapper mapper = new ObjectMapper();
+				loginObj= mapper.readValue(jsonPayLoad, LoginDetails.class);
 			} 
-			else if (reqContentType.equals("application/xml")) {
-				loginObj = (LoginDetails)objGen.getObjectFromXML(request);
+			else if (reqContentType.equals("application/xml")) {				
+				String xmlPayLoad = objGen.getObjectFromXML(request);
+				XmlMapper xmlMapper = new XmlMapper();
+				loginObj = xmlMapper.readValue(xmlPayLoad, LoginDetails.class);
 			}
 			
 			LoginDBConn dbCon =  new LoginDBConn ();
