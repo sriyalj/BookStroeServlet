@@ -4,10 +4,12 @@
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/books/ViewBook.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/Util/ResponseMsgs.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/books/ViewAllBooks.java
+/home/sriyal/eclipse-workspace/BookStoreServlet/src/DBConn/testCon.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/books/DeleteBook.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/authors/AddAuthor.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/books/AddBook.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/DBConn/AuthorDBConn.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/Util/ResponsePayLoadGenerator.java
+/home/sriyal/eclipse-workspace/BookStoreServlet/src/test/test.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/test/AddBook.java
 /home/sriyal/eclipse-workspace/BookStoreServlet/src/Util/GeneralServerResponseMsgs.java

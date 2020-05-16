@@ -1,18 +1,9 @@
 package DBConn;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,8 +22,7 @@ public class AuthorDBConn {
     
     public boolean addAuthor(Author obj) throws SQLException{
     	
-    	boolean success = false;
-    	
+    	boolean success = false;    	
     	
     	String insertQuery = " insert into Authors (Fst_Name, Mdle_Name, Lst_Name, Origin_Country)"
     	        + " values (?, ?, ?, ?)";

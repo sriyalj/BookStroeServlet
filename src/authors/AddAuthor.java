@@ -1,6 +1,5 @@
 package authors;
 
-
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,8 +30,6 @@ import java.util.logging.Logger;
 @WebServlet("/authors/addBook")
 public class AddAuthor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArrayList <String> res = new ArrayList <> ();
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -45,9 +42,7 @@ public class AddAuthor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println ("Add Author Servlet doGet Called");
-		response.getWriter().println("Add Author Servlet doGet Response");      
+		// TODO Auto-generated method stub		  
 	}
 
 	/**
@@ -78,9 +73,14 @@ public class AddAuthor extends HttpServlet {
 			}
 			
 			AuthorDBConn dbCon =  new AuthorDBConn ();
-		    dbCon.addAuthor(authorObj);
-		    serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
-		   
+		    boolean status = dbCon.addAuthor(authorObj);
+		    
+		    if (status == true) {
+		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
+		    }
+		    else {
+		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_INTERNAL_SERVER_ERROR),"Failed To Save New Author Details");
+		    }
 		}			
 		catch (IOException | ClassNotFoundException ex ) {
 			

@@ -4,9 +4,11 @@ books/DeleteBook.class
 books/UpdateBook.class
 books/AddBook.class
 test/AddBook.class
+test/test.class
 books/ViewAllBooks.class
 Util/ObjectGeneratorFromPayLoad.class
 Util/ResponseMsgs.class
+DBConn/testCon.class
 Entity/Author.class
 Util/ResponsePayLoadGenerator.class
 books/ViewBook.class
