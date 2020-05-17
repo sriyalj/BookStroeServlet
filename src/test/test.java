@@ -1,7 +1,9 @@
 package test;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,12 +25,16 @@ public class test extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println ("Test Servlet Post Method");
-		testCon tC =  new testCon ();
-		tC.testQuery();
-		
-		response.getWriter().println("Test Servlet doGet Response"); 
+		System.out.println ("Test Servlet doPost Called");
+		ServletContext application = getServletConfig().getServletContext();  
+		String data_rtrvd= (String) application.getAttribute("variable");
+		Integer cnt = (Integer) application.getAttribute("cnt");
+		cnt = cnt + 1;
+		data_rtrvd = data_rtrvd + cnt.toString();
+		System.out.println (data_rtrvd);		
+
+		OutputStream out = response.getOutputStream(); 
+	    out.write(data_rtrvd.getBytes()); 
 
 	}
 }

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -80,12 +81,19 @@ public class Login extends HttpServlet {
 			loginStatus = dbCon.userLogin(loginObj);
 		    
 		    if (loginStatus == true) {
-		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"New Author Added Succesfully");
+		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"Login Succesfull. Welcome " + loginObj.getUserName());
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
-		    	response.addCookie(c);
+		    	c.setDomain("localhost");
+		    	//c.setValue("12345");
+		    	response.addCookie(c);	
+		    	
+		    	ServletContext application = getServletConfig().getServletContext();
+		    	String data = dbCon.getrefCode() ;  
+		    	application.setAttribute("variable", data); 
+		    	application.setAttribute("cnt", Integer.valueOf(1));
 		    }
 		    else {
-		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_NO_CONTENT),"New Author Added Succesfully");
+		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_NO_CONTENT),"Login Failed.\n User Name Or Password Is Incorrect");
 		    } 
 		   
 		}			
