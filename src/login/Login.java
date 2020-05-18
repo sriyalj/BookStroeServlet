@@ -84,12 +84,13 @@ public class Login extends HttpServlet {
 		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"Login Succesfull. Welcome " + loginObj.getUserName());
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
 		    	c.setDomain("localhost");
+		    	c.setMaxAge(1);
 		    	//c.setValue("12345");
 		    	response.addCookie(c);	
 		    	
 		    	c = new Cookie("passWord","Sriyal.meh21");
 		    	c.setDomain("localhost");
-		    	c.setMaxAge(1800);
+		    	c.setMaxAge(1);
 		    	//c.setValue("12345");
 		    	response.addCookie(c);
 		    	
