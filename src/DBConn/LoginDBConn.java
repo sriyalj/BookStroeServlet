@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.LoginDetails;
+import Entity.UserProfile;
 
 public class LoginDBConn {
 	
@@ -26,7 +26,7 @@ public class LoginDBConn {
     	return refCode;
     }
     
-    public boolean userLogin (LoginDetails obj) throws SQLException{
+    public boolean userLogin (UserProfile obj) throws SQLException{
     	boolean status = false;    	
     	
     	String selectQuery = "SELECT * FROM Users WHERE username = ? and password = ?";
@@ -37,10 +37,9 @@ public class LoginDBConn {
     		PreparedStatement preparedStmt = con.prepareStatement(selectQuery);
             preparedStmt.setString(1, obj.getUserName());
             preparedStmt.setString(2, obj.getPassWord());
-            ResultSet rs = preparedStmt.executeQuery();
+            ResultSet rs = preparedStmt.executeQuery();           
             
-            while ( rs.next() )
-            {  
+            while ( rs.next() ) {  
             	refCode= rs.getString("refCode");
             	status = true;
             }

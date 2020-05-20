@@ -22,10 +22,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import DBConn.AuthorDBConn;
 import DBConn.LoginDBConn;
 import Entity.Author;
-import Entity.LoginDetails;
-import Util.GeneralServerResponseMsgs;
-import Util.ObjectGeneratorFromPayLoad;
-import Util.ResponsePayLoadGenerator;
+import Entity.UserProfile;
+import Util.Messages.GeneralServerResponseMsgs;
+import Util.PayLoadObjectGenerators.ObjectGeneratorFromPayLoad;
+import Util.PayLoadObjectGenerators.ResponsePayLoadGenerator;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		byte[] message = null;
-		LoginDetails loginObj = null;
+		UserProfile loginObj = null;
 		GeneralServerResponseMsgs serverResponse = null;
 		String reqContentType = "";
 		String resContentType = ""; 
@@ -64,17 +64,17 @@ public class Login extends HttpServlet {
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		
 			if (reqContentType.equals("text/plain; charset=utf-8")) {
-				loginObj = (LoginDetails)objGen.getObjectFromText(request);
+				loginObj = (UserProfile)objGen.getObjectFromText(request);
 			}
 			else if (reqContentType.equals("application/json; utf-8")) {
 				String jsonPayLoad = objGen.getObjectFromJSON(request);
 				ObjectMapper mapper = new ObjectMapper();
-				loginObj= mapper.readValue(jsonPayLoad, LoginDetails.class);
+				loginObj= mapper.readValue(jsonPayLoad, UserProfile.class);
 			} 
 			else if (reqContentType.equals("application/xml")) {				
 				String xmlPayLoad = objGen.getObjectFromXML(request);
 				XmlMapper xmlMapper = new XmlMapper();
-				loginObj = xmlMapper.readValue(xmlPayLoad, LoginDetails.class);
+				loginObj = xmlMapper.readValue(xmlPayLoad, UserProfile.class);
 			}
 			
 			LoginDBConn dbCon =  new LoginDBConn ();
@@ -85,13 +85,11 @@ public class Login extends HttpServlet {
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
 		    	c.setDomain("localhost");
 		    	c.setMaxAge(1);
-		    	//c.setValue("12345");
 		    	response.addCookie(c);	
 		    	
 		    	c = new Cookie("passWord","Sriyal.meh21");
 		    	c.setDomain("localhost");
 		    	c.setMaxAge(1);
-		    	//c.setValue("12345");
 		    	response.addCookie(c);
 		    	
 		    	ServletContext application = getServletConfig().getServletContext();

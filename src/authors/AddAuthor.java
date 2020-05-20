@@ -19,10 +19,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import DBConn.AuthorDBConn;
 import Entity.Author;
-import Entity.LoginDetails;
-import Util.GeneralServerResponseMsgs;
-import Util.ObjectGeneratorFromPayLoad;
-import Util.ResponsePayLoadGenerator;
+import Entity.UserProfile;
+import Util.Messages.GeneralServerResponseMsgs;
+import Util.PayLoadObjectGenerators.ObjectGeneratorFromPayLoad;
+import Util.PayLoadObjectGenerators.ResponsePayLoadGenerator;
 
 import java.util.*;
 import java.util.logging.Level;
