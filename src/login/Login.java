@@ -85,12 +85,8 @@ public class Login extends HttpServlet {
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
 		    	c.setDomain("localhost");
 		    	c.setMaxAge(1);
+		    	c.setPath("/");
 		    	response.addCookie(c);	
-		    	
-		    	c = new Cookie("passWord","Sriyal.meh21");
-		    	c.setDomain("localhost");
-		    	c.setMaxAge(1);
-		    	response.addCookie(c);
 		    	
 		    	ServletContext application = getServletConfig().getServletContext();
 		    	String data = dbCon.getrefCode() ;  
