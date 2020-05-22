@@ -84,9 +84,48 @@ public class Login extends HttpServlet {
 		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"Login Succesfull. Welcome " + loginObj.getUserName());
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
 		    	c.setDomain("localhost");
+		    	c.setMaxAge(120);
+		    	c.setPath("/");
+		    	response.addCookie(c);
+		    	
+		    	/*
+		    	c = new Cookie("userName","Himasha2");
+		    	c.setDomain("localhost");
+		    	//c.setMaxAge(1800);
+		    	c.setPath("/");
+		    	response.addCookie(c);
+		    	
+		    	c = new Cookie("userName","Medhani2");
+		    	c.setDomain("localhost");
+		    	c.setMaxAge(3600);
+		    	c.setPath("/");
+		    	response.addCookie(c);
+		    	
+		    	
+		    	c = new Cookie("userName", "Rehansa2");
+		    	c.setDomain("localhost");
 		    	c.setMaxAge(3600);
 		    	c.setPath("/");
 		    	response.addCookie(c);		    	
+		    	
+		    	c = new Cookie("userName", "Lesithya2");
+		    	c.setDomain("localhost");
+		    	c.setMaxAge(1800);
+		    	c.setPath("/del");
+		    	response.addCookie(c);		    	
+		    	
+		    	c = new Cookie("userName","Vidun2");
+		    	c.setDomain("localhost");
+		    	c.setMaxAge(3600);
+		    	c.setPath("/del");
+		    	response.addCookie(c);
+		    	
+		    	c = new Cookie("userName","Mihiru2");
+		    	c.setDomain("localhost");
+		    	c.setMaxAge(1800);
+		    	c.setPath("/add");
+		    	response.addCookie(c);
+		    	*/
 		    	
 		    	ServletContext application = getServletConfig().getServletContext();
 		    	String data = dbCon.getrefCode() ;  
