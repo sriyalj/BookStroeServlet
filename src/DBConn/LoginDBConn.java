@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import Entity.UserProfile;
+import Entity.AutheticationData;
 
 public class LoginDBConn {
 	
@@ -26,7 +26,7 @@ public class LoginDBConn {
     	return refCode;
     }
     
-    public boolean userLogin (UserProfile obj) throws SQLException{
+    public boolean userLogin (AutheticationData obj) throws SQLException{
     	boolean status = false;    	
     	
     	String selectQuery = "SELECT * FROM Users WHERE username = ? and password = ?";

@@ -1,15 +1,12 @@
 package authors;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,12 +16,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import DBConn.AuthorDBConn;
 import Entity.Author;
-import Entity.UserProfile;
 import Util.Messages.GeneralServerResponseMsgs;
 import Util.PayLoadObjectGenerators.ObjectGeneratorFromPayLoad;
 import Util.PayLoadObjectGenerators.ResponsePayLoadGenerator;
 
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +49,7 @@ public class AddAuthor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		byte[] message = null;
+		
 		Author authorObj = null;
 		GeneralServerResponseMsgs serverResponse = null;
 		String reqContentType = "";
@@ -63,7 +58,17 @@ public class AddAuthor extends HttpServlet {
 		try {
 			reqContentType = request.getContentType();
 			resContentType = request.getHeader("Accept");
-		
+			
+			Cookie[] cookies = request.getCookies();
+			System.out.println ("Printing Cookies\n");
+			for (Cookie c : cookies) {
+				System.out.println ("Cookies Name " + c.getName());
+				System.out.println ("Cookies Value " + c.getValue());
+				System.out.println ("Max Age " + c.getMaxAge());
+				System.out.println (" ");
+			}
+			System.out.println ("\nCookies Printing Done");
+			
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		
 			if (reqContentType.equals("text/plain; charset=utf-8")) {

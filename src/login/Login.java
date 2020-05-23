@@ -22,7 +22,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import DBConn.AuthorDBConn;
 import DBConn.LoginDBConn;
 import Entity.Author;
-import Entity.UserProfile;
+import Entity.AutheticationData;
 import Util.Messages.GeneralServerResponseMsgs;
 import Util.PayLoadObjectGenerators.ObjectGeneratorFromPayLoad;
 import Util.PayLoadObjectGenerators.ResponsePayLoadGenerator;
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		byte[] message = null;
-		UserProfile loginObj = null;
+		AutheticationData loginObj = null;
 		GeneralServerResponseMsgs serverResponse = null;
 		String reqContentType = "";
 		String resContentType = ""; 
@@ -64,17 +64,17 @@ public class Login extends HttpServlet {
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		
 			if (reqContentType.equals("text/plain; charset=utf-8")) {
-				loginObj = (UserProfile)objGen.getObjectFromText(request);
+				loginObj = (AutheticationData)objGen.getObjectFromText(request);
 			}
 			else if (reqContentType.equals("application/json; utf-8")) {
 				String jsonPayLoad = objGen.getObjectFromJSON(request);
 				ObjectMapper mapper = new ObjectMapper();
-				loginObj= mapper.readValue(jsonPayLoad, UserProfile.class);
+				loginObj= mapper.readValue(jsonPayLoad, AutheticationData.class);
 			} 
 			else if (reqContentType.equals("application/xml")) {				
 				String xmlPayLoad = objGen.getObjectFromXML(request);
 				XmlMapper xmlMapper = new XmlMapper();
-				loginObj = xmlMapper.readValue(xmlPayLoad, UserProfile.class);
+				loginObj = xmlMapper.readValue(xmlPayLoad, AutheticationData.class);
 			}
 			
 			LoginDBConn dbCon =  new LoginDBConn ();
@@ -84,17 +84,17 @@ public class Login extends HttpServlet {
 		    	serverResponse = new GeneralServerResponseMsgs (Integer.toString(HttpServletResponse.SC_OK),"Login Succesfull. Welcome " + loginObj.getUserName());
 		    	Cookie c = new Cookie("userName",dbCon.getrefCode());
 		    	c.setDomain("localhost");
-		    	c.setMaxAge(120);
+		    	c.setMaxAge(90);
 		    	c.setPath("/");
-		    	response.addCookie(c);
+		    	response.addCookie(c);		    	
 		    	
-		    	/*
 		    	c = new Cookie("userName","Himasha2");
-		    	c.setDomain("localhost");
+		    	//c.setDomain("localhost");
 		    	//c.setMaxAge(1800);
 		    	c.setPath("/");
 		    	response.addCookie(c);
 		    	
+		    	/*
 		    	c = new Cookie("userName","Medhani2");
 		    	c.setDomain("localhost");
 		    	c.setMaxAge(3600);
