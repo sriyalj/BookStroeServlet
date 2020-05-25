@@ -20,6 +20,7 @@ import Util.Messages.GeneralServerResponseMsgs;
 import Util.PayLoadObjectGenerators.ObjectGeneratorFromPayLoad;
 import Util.PayLoadObjectGenerators.ResponsePayLoadGenerator;
 
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,15 +60,13 @@ public class AddAuthor extends HttpServlet {
 			reqContentType = request.getContentType();
 			resContentType = request.getHeader("Accept");
 			
-			Cookie[] cookies = request.getCookies();
-			System.out.println ("Printing Cookies\n");
-			for (Cookie c : cookies) {
-				System.out.println ("Cookies Name " + c.getName());
-				System.out.println ("Cookies Value " + c.getValue());
-				System.out.println ("Max Age " + c.getMaxAge());
-				System.out.println (" ");
+			Enumeration<String> CookiesList = request.getHeaders("Cookie");
+			System.out.println ("Incomeing Cookies");
+			while (CookiesList.hasMoreElements()) {
+				String headerName = CookiesList.nextElement();
+				System.out.println (headerName);
 			}
-			System.out.println ("\nCookies Printing Done");
+			
 			
 			ObjectGeneratorFromPayLoad objGen =  new ObjectGeneratorFromPayLoad ();
 		

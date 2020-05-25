@@ -8,11 +8,11 @@ books/UpdateBook.class
 Util/Messages/ResponseMsgs.class
 books/AddBook.class
 test/AddBook.class
+Entity/AutheticationData.class
 test/test.class
 books/ViewAllBooks.class
 DBConn/testCon.class
 Entity/Author.class
-Entity/AuthenticationData.class
 books/ViewBook.class
 Util/PayLoadObjectGenerators/ObjectGeneratorFromPayLoad.class
 DBConn/LoginDBConn.class
