@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -31,45 +32,56 @@ public class test extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println ("Test Servlet doPost Called");	
 		
-		String Name = request.getParameter("userName"); 
-		String passWD = request.getParameter("passWD"); 
-		
+		String userName = request.getHeader("userName");
+		String passWd = request.getHeader("passWD");
+				
 		String data = "";   
 		StringBuilder builder = new StringBuilder();
 		BufferedReader reader = request.getReader();
-		String line;
+		String line = "";
 		while ((line = reader.readLine()) != null) {
 			builder.append(line);
 		}
+		
 		data = builder.toString();	
+		int upperbound = 25;
+		Random rand = new Random();
+		String userID = userName + Integer.valueOf(rand.nextInt(upperbound)).toString();
 		
-		HttpSession session=request.getSession(true);
-		
-		// Get session creation time.
-	      Date createTime = new Date(session.getCreationTime());
-	         
-	      // Get last access time of this web page.
-	      Date lastAccessTime = new Date(session.getLastAccessedTime());
+		HttpSession session=request.getSession();
+		Date createTime = new Date(session.getCreationTime());
+	    Date lastAccessTime = new Date(session.getLastAccessedTime());
 
-	      String title = "Welcome Back to my website";
-	      Integer visitCount = 0;
-	      String visitCountKey = new String("visitCount");
-	      String userIDKey = new String("userID");
-	      String userID = new String("ABCD");
+	    String title = "";
+	    String name = "";
+	    Integer visitCount = 1;
+	    String visitCountKey = new String("visitCount");
 
 	      // Check if this is new comer on your web page.
-	      if (session.isNew()) {
-	         title = "Welcome to my website";
-	         session.setAttribute(userIDKey, userID);
-	      } else {
-	         visitCount = (Integer)session.getAttribute(visitCountKey);
-	         visitCount = visitCount + 1;
-	         userID = (String)session.getAttribute(userIDKey);
-	      }
-	      session.setAttribute(visitCountKey,  visitCount);
+	    if (session.isNew()) {
+	       title = "Welcome to my website";
+	       session.setAttribute("UserIDKey", userID);
+	       name = (String)session.getAttribute("UserIDKey");
+	    } else {
+	       visitCount = (Integer)session.getAttribute(visitCountKey);
+	       visitCount = visitCount + 1;
+	       name = (String)session.getAttribute("UserIDKey");
+	    }
+	    session.setAttribute(visitCountKey,  visitCount);
+	    
+	    //ServletContext application = getServletConfig().getServletContext();
+	    //application.setAttribute(name, object);
+	      
+	    System.out.println ("Title " + title);
+	    System.out.println ("Session ID " + session.getId());
+	    System.out.println ("Create Time " + createTime);
+	    System.out.println ("Last Access " + lastAccessTime);
+	    System.out.println ("UserID " + name);
+	    System.out.println ("No of Visits " + visitCount.toString());
+	    System.out.println ("\n\n");
 
 		OutputStream out = response.getOutputStream(); 
-	    out.write(data.getBytes()); 
+	    out.write(((String)session.getAttribute("UserIDKey")).getBytes()); 
 
 	}
 }

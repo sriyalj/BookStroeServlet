@@ -3,6 +3,7 @@ DBConn/AuthorDBConn.class
 Util/PayLoadObjectGenerators/ResponsePayLoadGenerator.class
 Util/Messages/GeneralServerResponseMsgs.class
 login/Login.class
+test/test2.class
 books/DeleteBook.class
 books/UpdateBook.class
 Util/Messages/ResponseMsgs.class
